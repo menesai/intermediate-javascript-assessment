@@ -13,7 +13,13 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-
+function callBinding (arr, func, num){
+    for (i = 0; i <= arr.length; i++){
+        if(arr[i] === arr[num]){
+            return func.call(arr[i], 'Trogdor')
+        }
+    }
+};
 
 
 // *************
@@ -28,6 +34,14 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
+function applyBinding(magicAnimals, updateAnimal, id) {
+    // var boundF;
+    for (i = 0; i < magicAnimals.length; i++) {
+        if (magicAnimals[i].id === id) {
+            return updateAnimal.apply(magicAnimals[i], ['being majestic', 'eating rainbows'])
+        }
+    }
+}
 
 
 
@@ -49,7 +63,9 @@ var foo;
 
 // CODE HERE...
 
+function promiseMe ($q) {
 
+}
 
 // *************
 // * PROBLEM 4 *
@@ -64,3 +80,6 @@ var foo;
 // and then resolve the array as you complete your promise.
 
 // CODE HERE...
+function emailList (){
+    
+}

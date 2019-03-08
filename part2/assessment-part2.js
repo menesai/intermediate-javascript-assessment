@@ -34,17 +34,28 @@
 // In the second .then function you use, assign the third user object
 // to the variable 'thirdUser' (previously declared) and then return the tenth user object.
 
-var firstUser = 'don\'t touch this string!';
-var thirdUser = 'don\'t touch this string, either!';
+
+var firstUser = "don't touch this string!";
+var thirdUser = "don't touch this string, either!";
 
 function noWeakLink() {
-
-  return $http({
-    method: 'GET',
-    url: '/api/users'
-  })
-  // CODE HERE...
-
+  return (
+    $http({
+      method: "GET",
+      url: "/api/users"
+    })
+      // CODE HERE...
+      //it is response.data bc if you look at the response above, it is returned in an array called data
+      .then(response => {
+        firstUser = response.data[0];
+        return response;
+      })
+      .then(response => {
+        //index 2 is third object, index 9 is 10th obj
+        thirdUser = response.data[2];
+        return response.data[9];
+      })
+  );
 }
 
 
@@ -72,10 +83,10 @@ var elephant = {
 function large() {
 
   return 'My name is ' + this.name + ' and I am very heavy!'
-}
+} 
 // CODE HERE...
 
-
+var boundToElephant = large.bind(elephant)
 
 // *************
 // * PROBLEM 3 *
@@ -89,7 +100,10 @@ function large() {
 
 // CODE HERE...
 
-
+function deathStar (capacity, crew) {
+  capacity = capacity.bind(crew)
+  return capacity;
+}
 
 // *************
 // * PROBLEM 4 *
@@ -104,7 +118,11 @@ function large() {
 
 // CODE HERE...
 
-
+function accountingOffice(assets){
+  return liabilities => {
+    return assets + liabilities;
+  }
+}
 
 // *************
 // * PROBLEM 5 *
@@ -128,7 +146,13 @@ function large() {
 // };
 
 // CODE HERE...
-
+  function forgetter(name){
+    let items = [];
+    return function rememberall(item){
+      items.push(item)
+      return {name: name, remember: items}
+    }
+  }
 
 
 // *************
@@ -156,3 +180,48 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+
+function frodo (startingDangerValue, startingHungerValue) {
+  let hunger = startingHungerValue;
+  let danger = startingDangerValue; 
+  
+  return {
+    dinnerOverFire: function() {
+      var newHunger = hunger  -=25
+      if (newHunger < 0){
+        newHunger =0
+      }
+      
+      var newDanger = danger += 40
+      if(newDanger >100){
+        newDanger = 100
+        // console.log(newDanger)
+      }
+
+      return {
+        hunger: newHunger,
+        danger: newDanger
+      }
+
+    },
+
+    hidingInBush: function () {
+      var newHunger = hunger += 35
+
+      if(newHunger > 100){
+        newHunger = 100
+      }
+
+      var newDanger = danger -= 20
+
+      if(newDanger < 0){
+        newDanger = 0
+      }
+
+      return {
+        hunger: newHunger,
+        danger: newDanger
+      }
+    }
+  }
+} 
